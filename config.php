@@ -27,10 +27,10 @@ define('ROOT_PATH', __DIR__);
 
 // Database
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'gbibbo_'); // Uso gbibbo_ come placeholder
-define('DB_USER', 'gbibbo'); // Uso gbibbo come placeholder
-define('DB_PASS', 'oMp1m$74Ttc6@4w4'); // Uso la password fornita in precedenza
-define('DB_PREFIX', 'ci_');
+define('DB_NAME', ''); // Uso gbibbo_ come placeholder
+define('DB_USER', ''); // Uso gbibbo come placeholder
+define('DB_PASS', ''); // Uso la password fornita in precedenza
+define('DB_PREFIX', '');
 
 // App
 define('APP_NAME', 'MAD');
