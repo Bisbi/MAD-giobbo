@@ -1,0 +1,820 @@
+/* 🎲 CARTE D&D V2 - Custom CSS */
+
+/* --- FIX: Reset Layout per correggere lo stacco della Navbar (VERSIONE FINALE) --- */
+
+/* 1. Reset Box Model Universale (Cruciale per layout moderni) */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 2. Reset Margini/Padding del Body con massima priorità */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+/* 3. Reset completo navbar - SUPER AGGRESSIVO */
+.navbar {
+    margin: 0 !important;
+    padding: 0.5rem 0 !important;
+    border: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+}
+
+/* 3b. Reset anche con specificità Bootstrap */
+nav.navbar,
+.navbar.navbar-expand-lg,
+.navbar.sticky-top {
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+/* 3c. Elimina qualsiasi spazio sopra la navbar dal container */
+.navbar .container-fluid {
+    margin-top: 0 !important;
+    padding-top: 0.5rem !important;
+}
+
+/* 4. Forza la navbar come primo elemento visibile */
+.navbar.sticky-top {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1020 !important;
+}
+
+/* 5. Reset script tags e elementi hidden */
+script, style {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+/* ------------------------------------------------------------------------ */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #6b73ff 0%, #4ecdc4 100%);
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* ==================== FIX TOOLTIP / OVERLAY ISSUES (CORRETTO) ==================== */
+
+/* Disabilita tooltip nativi in elementi interattivi */
+button[title],
+a[title],
+.theme-toggle {
+    position: relative;
+}
+
+/* Nascondi tooltip browser su hover */
+[title]:hover::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Previeni overlay bloccati */
+.tooltip,
+.popover {
+    pointer-events: none !important;
+}
+
+/* Fix per elementi fluttuanti che restano visibili */
+.navbar .dropdown-menu {
+    z-index: 1050 !important;
+}
+
+/*
+ * REGOLE AGGRESSIVE RIMOSSE:
+ * Le regole .modal-backdrop, .modal.show ~ .modal-backdrop, e .fade:not(.show)
+ * che usavano display: none !important sono state rimosse.
+ * Questo permette al JavaScript di Bootstrap di gestire l'apertura del Modale
+ * e la visualizzazione del pulsante di attivazione correttamente.
+ */
+
+/* ==================== DARK MODE ==================== */
+[data-theme="dark"] {
+    --bs-body-bg: #1a1a1a;
+    --bs-body-color: #e8e8e8;
+    --bs-border-color: #444;
+    --card-bg: #2d2d2d;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    --modal-bg: #2a2a2a;
+    --input-bg: #404040;
+}
+
+/* Background e testi base */
+[data-theme="dark"] body {
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
+}
+
+/* Headings - MOLTO CHIARI */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .h1,
+[data-theme="dark"] .h2,
+[data-theme="dark"] .h3,
+[data-theme="dark"] .h4,
+[data-theme="dark"] .h5,
+[data-theme="dark"] .h6 {
+    color: #ffffff !important;
+}
+
+/* Testi generici */
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div,
+[data-theme="dark"] li,
+[data-theme="dark"] label,
+[data-theme="dark"] td,
+[data-theme="dark"] th {
+    color: var(--bs-body-color);
+}
+
+/* Small text PIÙ CHIARO */
+[data-theme="dark"] small,
+[data-theme="dark"] .small {
+    color: #d0d0d0 !important;
+}
+
+/* Links */
+[data-theme="dark"] a {
+    color: #8b93ff !important;
+}
+
+[data-theme="dark"] a:hover {
+    color: #a5acff !important;
+}
+
+/* ==================== NAVBAR ==================== */
+[data-theme="dark"] .navbar {
+    background: linear-gradient(135deg, #2d2d40 0%, #1a1a2e 100%) !important;
+}
+
+/* Navbar brand */
+[data-theme="dark"] .navbar-brand {
+    color: #ffffff !important;
+}
+
+/* Navbar links - MOLTO PIÙ CHIARI */
+[data-theme="dark"] .navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .navbar-nav .nav-link:hover {
+    color: #a5acff !important;
+}
+
+[data-theme="dark"] .navbar-nav .nav-link.active {
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.15) !important;
+}
+
+/* Navbar text */
+[data-theme="dark"] .navbar-text {
+    color: #ffffff !important;
+}
+
+/* Fix navbar toggler in dark mode */
+[data-theme="dark"] .navbar-toggler {
+    border-color: rgba(255,255,255,0.3) !important;
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* ==================== CARDS ==================== */
+[data-theme="dark"] .card {
+    background-color: var(--card-bg) !important;
+    color: var(--bs-body-color) !important;
+    border-color: var(--bs-border-color) !important;
+}
+
+[data-theme="dark"] .card-title {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .card-text {
+    color: var(--bs-body-color) !important;
+}
+
+/* Card header - mantieni colori originali ma text bianco */
+[data-theme="dark"] .card-header {
+    color: #ffffff !important;
+    border-bottom-color: #444 !important;
+}
+
+[data-theme="dark"] .card-header.bg-primary,
+[data-theme="dark"] .card-header.bg-success,
+[data-theme="dark"] .card-header.bg-warning,
+[data-theme="dark"] .card-header.bg-danger,
+[data-theme="dark"] .card-header.bg-info {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .card-footer {
+    background-color: rgba(0,0,0,0.2) !important;
+    border-top-color: #444 !important;
+}
+
+/* ==================== BACKGROUND COLORS ==================== */
+[data-theme="dark"] .bg-light {
+    background-color: #2d2d2d !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .bg-white {
+    background-color: #2d2d2d !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .bg-dark {
+    background-color: #1a1a1a !important;
+}
+
+/* ==================== TABELLE ==================== */
+[data-theme="dark"] .table {
+    --bs-table-bg: #2d2d2d;
+    --bs-table-border-color: #444;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .table thead th {
+    color: #ffffff !important;
+    border-color: #555 !important;
+}
+
+[data-theme="dark"] .table tbody td {
+    color: var(--bs-body-color) !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] .table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* ==================== BUTTONS ==================== */
+/* Button Success (Stampa) - PIÙ EVIDENTE */
+[data-theme="dark"] .btn-success {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    color: white !important;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.4) !important;
+}
+
+[data-theme="dark"] .btn-success:hover {
+    background-color: #34ce57 !important;
+    border-color: #34ce57 !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(52, 206, 87, 0.6) !important;
+}
+
+/* Altri buttons */
+[data-theme="dark"] .btn-outline-primary {
+    color: #8b93ff !important;
+    border-color: #8b93ff !important;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: #8b93ff !important;
+    color: white !important;
+    border-color: #8b93ff !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+    color: #d0d0d0 !important;
+    border-color: #666 !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #666 !important;
+    color: white !important;
+    border-color: #666 !important;
+}
+
+[data-theme="dark"] .btn-outline-success {
+    color: #6fdc8c !important;
+    border-color: #6fdc8c !important;
+}
+
+[data-theme="dark"] .btn-outline-success:hover {
+    background-color: #6fdc8c !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-outline-light {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.1) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .btn-warning:hover {
+    background-color: #ffca2c !important;
+    border-color: #ffca2c !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #6b73ff !important;
+    border-color: #6b73ff !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: #8b93ff !important;
+    border-color: #8b93ff !important;
+}
+
+/* ==================== FORMS ==================== */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #3a3a3a !important;
+    border: 2px solid #555 !important;
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+[data-theme="dark"] .form-control:disabled {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+    color: #888 !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: #404040 !important;
+    color: #ffffff !important;
+    border-color: #8b93ff !important;
+    box-shadow: 0 0 0 0.25rem rgba(139, 147, 255, 0.35) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #999 !important;
+    opacity: 1;
+}
+
+[data-theme="dark"] .form-label {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .form-check-label {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .form-check-input {
+    background-color: #3a3a3a !important;
+    border: 2px solid #666 !important;
+}
+
+[data-theme="dark"] .form-check-input:checked {
+    background-color: #6b73ff !important;
+    border-color: #6b73ff !important;
+}
+
+/* 🔴 Form Floating Labels - FIX RETTANGOLINI NERI */
+[data-theme="dark"] .form-floating > .form-control,
+[data-theme="dark"] .form-floating > .form-select {
+    background-color: #3a3a3a !important;
+    border: 2px solid #666 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .form-floating > label {
+    color: #999 !important;
+    background-color: transparent !important;
+    opacity: 0.7;
+}
+
+[data-theme="dark"] .form-floating > .form-control:focus ~ label,
+[data-theme="dark"] .form-floating > .form-control:not(:placeholder-shown) ~ label,
+[data-theme="dark"] .form-floating > .form-select ~ label {
+    color: #a5acff !important;
+    background-color: #3a3a3a !important;
+    padding: 0.25rem 0.5rem !important;
+    opacity: 1 !important;
+}
+
+/* Textarea */
+[data-theme="dark"] textarea.form-control {
+    background-color: #3a3a3a !important;
+    border: 2px solid #666 !important;
+    color: #ffffff !important;
+}
+
+/* ==================== BADGES ==================== */
+[data-theme="dark"] .badge {
+    color: white !important;
+}
+
+[data-theme="dark"] .badge.bg-light {
+    background-color: #555 !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .badge.text-dark {
+    color: white !important;
+}
+
+/* ==================== ALERTS ==================== */
+[data-theme="dark"] .alert {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .alert-info {
+    background-color: #1e3a5f !important;
+    border-color: #2d5a8f !important;
+    color: #c8e0ff !important;
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: #1e3f2f !important;
+    border-color: #2d5f4f !important;
+    color: #c8ffe0 !important;
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: #4f3f1e !important;
+    border-color: #6f5f2d !important;
+    color: #ffe0c8 !important;
+}
+
+[data-theme="dark"] .alert-danger {
+    background-color: #4f1e1e !important;
+    border-color: #6f2d2d !important;
+    color: #ffc8c8 !important;
+}
+
+/* ==================== MODALS - SUPER CONTRASTO ==================== */
+[data-theme="dark"] .modal-content {
+    background-color: var(--modal-bg) !important;
+    color: var(--bs-body-color) !important;
+    border: 2px solid #555 !important;
+}
+
+[data-theme="dark"] .modal-header {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #555 !important;
+}
+
+[data-theme="dark"] .modal-header.bg-primary {
+    background-color: #6b73ff !important;
+    border-bottom: 2px solid #8b93ff !important;
+}
+
+[data-theme="dark"] .modal-header.bg-success {
+    background-color: #28a745 !important;
+    border-bottom: 2px solid #34ce57 !important;
+}
+
+[data-theme="dark"] .modal-title {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .modal-body {
+    background-color: var(--modal-bg) !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .modal-footer {
+    background-color: var(--modal-bg) !important;
+    border-top: 2px solid #555 !important;
+}
+
+/* 🔴 MODAL FORM INPUTS - FIX RETTANGOLINI LABEL */
+[data-theme="dark"] .modal .form-control,
+[data-theme="dark"] .modal .form-select,
+[data-theme="dark"] .modal textarea {
+    background-color: var(--input-bg) !important;
+    border: 2px solid #777 !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+[data-theme="dark"] .modal .form-control:focus,
+[data-theme="dark"] .modal .form-select:focus,
+[data-theme="dark"] .modal textarea:focus {
+    background-color: #4a4a4a !important;
+    border-color: #8b93ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.35rem rgba(139, 147, 255, 0.4) !important;
+}
+
+/* 🔴 FIX RETTANGOLINI NERI LABEL NEI MODAL */
+[data-theme="dark"] .modal .form-floating > label {
+    color: #aaa !important;
+    background-color: transparent !important;
+    opacity: 0.8 !important;
+}
+
+[data-theme="dark"] .modal .form-floating > .form-control:focus ~ label,
+[data-theme="dark"] .modal .form-floating > .form-control:not(:placeholder-shown) ~ label,
+[data-theme="dark"] .modal .form-floating > .form-select ~ label {
+    color: #ffffff !important;
+    background-color: var(--modal-bg) !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.25rem;
+    opacity: 1 !important;
+}
+
+[data-theme="dark"] .modal .form-label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-shadow: none;
+    background-color: transparent !important;
+}
+
+/* ==================== TABS ==================== */
+[data-theme="dark"] .nav-tabs {
+    border-bottom-color: #444 !important;
+}
+
+[data-theme="dark"] .nav-tabs .nav-link {
+    color: #d0d0d0 !important;
+    border-color: transparent !important;
+}
+
+[data-theme="dark"] .nav-tabs .nav-link:hover {
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] .nav-tabs .nav-link.active {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    border-color: #444 #444 transparent !important;
+}
+
+/* ==================== BREADCRUMB ==================== */
+[data-theme="dark"] .breadcrumb {
+    background-color: #2d2d2d !important;
+}
+
+[data-theme="dark"] .breadcrumb-item,
+[data-theme="dark"] .breadcrumb-item a {
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .breadcrumb-item.active {
+    color: #999 !important;
+}
+
+/* ==================== PAGINATION ==================== */
+[data-theme="dark"] .page-link {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .page-link:hover {
+    background-color: #3d3d3d !important;
+    border-color: #555 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .page-item.active .page-link {
+    background-color: #8b93ff !important;
+    border-color: #8b93ff !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .page-item.disabled .page-link {
+    background-color: #2d2d2d !important;
+    color: #666 !important;
+}
+
+/* ==================== LIST GROUP ==================== */
+[data-theme="dark"] .list-group-item {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .list-group-item:hover {
+    background-color: #3d3d3d !important;
+}
+
+[data-theme="dark"] .list-group-item.active {
+    background-color: #8b93ff !important;
+    border-color: #8b93ff !important;
+    color: white !important;
+}
+
+/* ==================== TEXT UTILITIES ==================== */
+[data-theme="dark"] .text-muted {
+    color: #aaa !important;
+}
+
+[data-theme="dark"] .text-dark {
+    color: #e8e8e8 !important;
+}
+
+[data-theme="dark"] .text-body {
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .text-secondary {
+    color: #aaa !important;
+}
+
+/* ==================== DROPDOWN ==================== */
+[data-theme="dark"] .dropdown-menu {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--bs-body-color) !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: #3d3d3d !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .dropdown-divider {
+    border-color: #444 !important;
+}
+
+/* ==================== FOOTER ==================== */
+[data-theme="dark"] footer {
+    background-color: #1a1a1a !important;
+    border-top: 1px solid #333 !important;
+}
+
+[data-theme="dark"] footer .footer-copyright {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+[data-theme="dark"] footer .footer-credits {
+    color: #ffc107 !important;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+/* Toast container non deve mai occupare spazio nel layout */
+.toast-container {
+    pointer-events: none;
+}
+
+.toast-container .toast {
+    pointer-events: all;
+}
+
+.toast {
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.toast-body {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+}
+
+/* Toast in Dark Mode - Stili migliorati */
+[data-theme="dark"] .toast {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .toast.bg-success {
+    background-color: #28a745 !important;
+}
+
+[data-theme="dark"] .toast.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+[data-theme="dark"] .toast.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+[data-theme="dark"] .toast.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .toast.bg-warning .btn-close {
+    filter: invert(1);
+}
+
+/* ==================== THEME TOGGLE ==================== */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Rimuovi completamente tooltip nativi */
+.theme-toggle[title]::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* ==================== FIX DI VISIBILITÀ (PULSANTI NASCOSTI) ==================== */
+
+/* Forza lo Z-index del footer e garantisce che non sia nascosto */
+.modal-footer {
+    z-index: 1060 !important; /* Più alto di tutti gli overlay standard di Bootstrap */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Forza la visibilità dei pulsanti specifici */
+.modal-footer .btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* ==================== ESISTENTI ==================== */
+/* Navbar Gradient */
+.navbar.bg-gradient {
+    background: var(--primary-gradient) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Active nav link */
+.navbar-nav .nav-link.active {
+    background: rgba(255,255,255,0.2);
+    border-radius: 0.25rem;
+}
+
+/* Cards enhancement */
+.card {
+    border: none;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Stats cards */
+.stat-card {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Buttons enhancement */
+.btn {
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .stat-card h3 {
+        font-size: 2rem;
+    }
+}

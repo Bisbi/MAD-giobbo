@@ -1,0 +1,10 @@
+# 1. Forziamo il Content-Type sul file PHP wrapper
+<Files chatapp-bundle.php>
+    ForceType application/javascript
+    Header set Content-Type "application/javascript; charset=utf-8"
+</Files>
+
+# 2. Aggiungiamo una regola globale per l'estensione JS.min (opzionale ma utile)
+<IfModule mod_mime.c>
+    AddType application/javascript .js.min
+</IfModule>

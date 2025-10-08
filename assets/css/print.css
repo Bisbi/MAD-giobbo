@@ -1,0 +1,76 @@
+/* 🖨️ PRINT STYLES - VERSIONE CORRETTA */
+
+@media print {
+    /* Reset body */
+    body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Nascondi elementi UI - SENZA visibility */
+    .navbar, .footer, .btn, .alert, 
+    .screen-only, .breadcrumb, .pagination,
+    .modal, .tooltip, .popover {
+        display: none !important;
+    }
+    
+    /* Mostra solo container carte */
+    .card-print-container {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    /* Foglio A4 con 9 carte (3x3) */
+    .card-sheet {
+        width: 210mm !important;
+        height: 297mm !important;
+        margin: 0 !important;
+        padding: 5mm !important;
+        background: white !important;
+        box-shadow: none !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(3, 1fr) !important;
+        gap: 5mm !important;
+        page-break-after: always !important;
+    }
+    
+    /* Carta singola */
+    .print-card {
+        width: 63mm !important;
+        height: 88mm !important;
+        border: 2px solid #000 !important;
+        border-radius: 3mm !important;
+        position: relative !important;
+        overflow: visible !important;
+        background: white !important;
+        page-break-inside: avoid !important;
+        display: block !important;
+    }
+    
+    /* Forza visualizzazione contenuto */
+    .print-card * {
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    /* Pattern devono essere forzati */
+    .print-card.creature-card,
+    .print-card.spell-card {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    
+    /* Assicura che il testo sia visibile */
+    .print-card-content,
+    .print-card-header,
+    .print-spell-description,
+    .print-attack,
+    .print-trait {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}

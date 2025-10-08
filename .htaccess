@@ -1,0 +1,81 @@
+# 🎲 CARTE D&D - Apache Configuration
+
+# ==================== CACHE CONTROL ====================
+# Aggiungi questa riga all'inizio del tuo .htaccess
+SetEnv TEST_HEADER "HTACCESS_IS_WORKING"
+# NO CACHE per HTML e PHP (Forza sempre ricarica)
+<FilesMatch "\.(html|htm|php)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>
+
+# CACHE LUNGO per asset statici (solo se hanno versioning nell'URL)
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$">
+    # Se ha ?v= nell'URL, cache lungo
+    Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# ==================== SECURITY ====================
+
+# Disabilita directory listing
+Options -Indexes
+
+# Proteggi file sensibili
+<FilesMatch "(\.env|\.git|\.htaccess|\.htpasswd|composer\.(json|lock)|package\.(json|lock))$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ==================== REWRITE RULES ====================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /carte
+    
+    # Se il file/directory esiste, servilo direttamente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Altrimenti passa tutto a index.php
+    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+</IfModule>
+
+# ==================== COMPRESSION ====================
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+</IfModule>
+
+# ==================== MIME TYPES ====================
+
+AddType application/json .json
+AddType application/javascript .js
+AddType text/css .css
+
+# ==================== CHARSET ====================
+
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. ESCLUSIONI (Anti-Routing): Non applicare le regole se il file o la cartella esistono
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # 2. Reindirizza tutte le altre richieste al tuo file di routing (es. index.php)
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
+
+# 3. FIX MIME TYPE (Assicurazione per JavaScript Modules)
+# Per garantire che i file JS vengano serviti correttamente, soprattutto i moduli.
+<FilesMatch "\.js$">
+    # Forza l'intestazione Content-Type per i file JavaScript
+    Header set Content-Type "application/javascript"
+</FilesMatch>
+
+# 4. Forzatura specifica per il tuo bundle (Regola aggressiva, se la 3 non basta)
+<Files "chatapp-bundle.js">
+    Header set Content-Type "application/javascript"
+</Files>

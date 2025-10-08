@@ -1,0 +1,492 @@
+/* 🎲 Sistema Carte D&D - CSS Unificato */
+
+/* Reset e base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8f9fa;
+}
+
+/* Layout principale */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    color: white;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.header .nav {
+    margin-top: 0.5rem;
+}
+
+.header .nav a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.header .nav a:hover {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.7);
+}
+
+/* Messaggi di sistema */
+.message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Bottoni */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: #6b73ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: #5a63e6;
+    transform: translateY(-1px);
+}
+
+.btn.btn-secondary {
+    background: #6c757d;
+}
+
+.btn.btn-danger {
+    background: #dc3545;
+}
+
+.btn.btn-success {
+    background: #28a745;
+}
+
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.6rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #6b73ff;
+    box-shadow: 0 0 0 3px rgba(107, 115, 255, 0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Card di sistema (non da gioco) */
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.4rem;
+}
+
+/* Tabelle */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table th,
+.table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #555;
+}
+
+.table tr:hover {
+    background: #f8f9fa;
+}
+
+/* CARTE D&D da stampare */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5mm;
+    margin: 20px 0;
+    padding: 5mm;
+}
+
+.dnd-card {
+    width: 63mm;
+    height: 88mm;
+    border: 1px solid #333;
+    border-radius: 3mm;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    padding: 2mm;
+    font-size: 10px;
+    line-height: 1.2;
+    overflow: hidden;
+    page-break-inside: avoid;
+}
+
+.dnd-card .card-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 2mm;
+    padding-bottom: 1mm;
+    border-bottom: 1px solid #666;
+}
+
+.dnd-card .card-content {
+    flex: 1;
+    font-size: 9px;
+}
+
+.dnd-card .card-footer {
+    text-align: center;
+    font-size: 8px;
+    color: #666;
+    margin-top: auto;
+    padding-top: 1mm;
+    border-top: 1px solid #ccc;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover {
+    color: #333;
+}
+
+/* Filtri */
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Admin panel specifico */
+.admin-nav {
+    background: #343a40;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.admin-nav a {
+    color: #adb5bd;
+    text-decoration: none;
+    margin-right: 2rem;
+    padding: 0.5rem 0;
+}
+
+.admin-nav a:hover,
+.admin-nav a.active {
+    color: white;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Upload area */
+.upload-area {
+    border: 2px dashed #6b73ff;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    background: #f8f9ff;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-area:hover {
+    background: #f0f2ff;
+    border-color: #5a63e6;
+}
+
+.upload-area.dragover {
+    background: #e8ebff;
+    border-color: #4f59d6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 3mm;
+    }
+    
+    .dnd-card {
+        width: 100%;
+        height: auto;
+        min-height: 120mm;
+    }
+    
+    .filters {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+        padding: 1rem;
+    }
+    
+    .admin-nav a {
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .nav a {
+        display: block;
+        margin: 0.2rem 0;
+    }
+    
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Stampa */
+@media print {
+    body {
+        background: white;
+    }
+    
+    .header,
+    .filters,
+    .btn,
+    .no-print {
+        display: none;
+    }
+    
+    .card-grid {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .dnd-card {
+        box-shadow: none;
+        border: 2px solid #000;
+    }
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #6b73ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.d-none { display: none; }
+.d-block { display: block; }
+.float-right { float: right; }
+
+/* Focus accessibility */
+*:focus {
+    outline: 2px solid #6b73ff;
+    outline-offset: 2px;
+}
+
+/* Dark mode support (futuro) */
+@media (prefers-color-scheme: dark) {
+    /* Implementazione futura per dark mode */
+}
